@@ -14,14 +14,11 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "5656f7e0-a91c-4502-a00c-12cd1f2e7308"
+				"spark.autotune.trackingId": "5d0d664f-52fd-47bb-968e-cbd81695defd"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
-			"synapse_widget": {
-				"version": "0.1"
-			},
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
@@ -37,6 +34,7 @@
 				"cell_type": "code",
 				"source": [
 					"import pandas as pd\r\n",
+					"\r\n",
 					"\r\n",
 					"def anonymize(df, cols):\r\n",
 					"    for col_name in cols:\r\n",
