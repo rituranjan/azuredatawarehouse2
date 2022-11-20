@@ -1,0 +1,59 @@
+{
+	"name": "AnonymizeData",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "5656f7e0-a91c-4502-a00c-12cd1f2e7308"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"import pandas as pd\r\n",
+					"\r\n",
+					"def anonymize(df, cols):\r\n",
+					"    for col_name in cols:\r\n",
+					"        keys = {cats: i for i,  cats in enumerate(df[col_name].unique())}\r\n",
+					"        df[col_name] = df[col_name].apply(lambda x : keys[x]) \r\n",
+					"    return df\r\n",
+					"\r\n",
+					"df = pd.read_csv('abfss://dldemofilesystem@dldemoaccount.dfs.core.windows.net/CryptocurrencyPricesDatasets.csv')\r\n",
+					"cols = ['crypto_name', 'low']\r\n",
+					"\r\n",
+					"anonymizeDataFrame = anonymize(df, cols)\r\n",
+					"anonymizeDataFrame.to_csv('abfss://dldemofilesystem@dldemoaccount.dfs.core.windows.net/AnonymizedDatasets.csv')\r\n",
+					"\r\n",
+					"print(\"data anonymized\")"
+				],
+				"execution_count": 1
+			}
+		]
+	}
+}
